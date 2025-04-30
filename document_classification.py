@@ -28,9 +28,6 @@ word_count = {
 
 class_count = {0:0 , 1:1}
 
-print(word_count)
-
-print(f"voacb index:{vocab_index}")
 
 for doc, label in zip(documents,labels):
     for word in tokenize(doc):
@@ -66,12 +63,19 @@ def predict(doc):
 
 
 test_sentences = [
-    "I love debugging",
-    "I hate python",
-    "Errors are frustrating"
+    "I love python",
+    "I hate bugs",
+    "Python is fascinating",
+    "Errors in code"
 ]
+true_labels = [1, 0, 1, 0]
 
-for i in test_sentences:
-    result = predict(i)
-    label = "positive" if result == 1 else "Negative"
-    print(f"{i} -> {label}")
+predicted_labels = [predict(i) for i in test_sentences]
+
+from sklearn.metrics import precision_score, recall_score, accuracy_score, confusion_matrix,f1_score
+print("\nEvaluation metrics :\n")
+print("Confusion Matrix:\n", confusion_matrix(true_labels, predicted_labels))
+print("Accuracy:", accuracy_score(true_labels, predicted_labels))
+print("Precision:", precision_score(true_labels, predicted_labels))
+print("Recall:", recall_score(true_labels, predicted_labels))
+print("F1 Score:", f1_score(true_labels, predicted_labels))
